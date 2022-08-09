@@ -1,4 +1,4 @@
-name: .NET
+name: .NET Demo
 
 on:
   workflow_dispatch:
