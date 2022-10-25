@@ -25,9 +25,13 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
+    - name: Publish
+      run: dotnet publish --no-build --output Publish
+      
     - name: Cache Simple
       id: cache-simple
       uses: actions/cache@v3
       with:
-        path: ~/home/runner/work/SimpleMathLib/SimpleMathLib/SimpleMathLib/bin/Debug/net6.0/SimpleMathLib.dll
+        path: ~${GITHUB_WORKSPACE}/Publish
         key: cache-simple
