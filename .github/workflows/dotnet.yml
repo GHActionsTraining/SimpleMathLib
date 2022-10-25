@@ -29,5 +29,5 @@ jobs:
       id: cache-simple
       uses: actions/cache@v3
       with:
-        path: ./SimpleMathLib/SimpleMathLib/bin/Debug/net6.0/
+        path: ~./home/runner/work/SimpleMathLib/SimpleMathLib/SimpleMathLib/bin/Debug/net6.0/SimpleMathLib.dll
         key: cache-simple
