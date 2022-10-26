@@ -23,15 +23,18 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      
     - name: Publish
       run: dotnet publish --no-build --output Publish
-      
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
     - name: Cache Simple
       id: cache-simple
       uses: actions/cache@v3
       with:
         path: ./Publish/
         key: cache-simple
+    - name: Test
+      if: steps.cache-packages.outputs.cache-hit != 'true'
+      run: dotnet test --no-build --verbosity normal
