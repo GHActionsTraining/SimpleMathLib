@@ -26,3 +26,12 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: InvokeRESTAPI@1
+  inputs:
+    connectionType: 'connectedServiceName'
+    serviceConnection: 'GHActionsTraining'
+    method: 'GET'
+    urlSuffix: '/repos/GHActionsTraining/SimpleMathLib/pulls?state=all'
+    waitForCompletion: 'false'
+  
