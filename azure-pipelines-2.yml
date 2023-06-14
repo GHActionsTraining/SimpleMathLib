@@ -1,0 +1,77 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    
+# - task: AzureCLI@2
+#   name: PR_Details
+#   inputs:
+#     azureSubscription: $(CTS_SDLC_SERVICE_CONNECTION)
+#     scriptType: 'pscore'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |  
+#       write-host "Project :"
+#       write-host $(System.TeamProject)
+#       write-host "token details: "  $token
+#       write-host "token details_() : "  $(token)
+#       # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$(System.AccessToken)")) } -- not working
+#       # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Bearer ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$(token)")) } -- not working
+#       # $AzureDevOpsAuthenicationHeader =  "Authorization: Bearer $(token)" -- not working 
+
+
+#       $AzureDevOpsAuthenicationHeader = @{
+#         'Authorization' = 'Bearer '+ '$(token)'
+#         'Accept' = 'application/vnd.github+json'
+#         'X-GitHub-Api-Version' = '2022-11-28'
+#       }
+
+
+
+#       # $uri = 'https://dev.azure.com/MSTahoma/$(System.TeamProject)/_apis/git/repositories/$(Build.Repository.ID)/pullrequests?searchCriteria.status=3&$skip=0&$top=1'
+
+#       $org = 'MorganStanley-Dogfood'
+#       $repo = 'WMTCTS.sdlc_gh_migraiton_1'
+#       # $pullNumber = $(system.pullRequest.pullRequestId)
+#       # $pullNumber = $(system.pullRequest.pullRequestNumber)
+
+#       # $uri = "https://api.github.com/repos/$org/$repo/pulls/$pullNumber"
+#       $uri = "https://api.github.com/repos/$org/$repo/pulls"
+#       write-host $uri
+
+#       # write-host ($uri -f $org $repo $pullNuber)
+
+#       $response = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $AzureDevOpsAuthenicationHeader
+#       # $response = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers @{'Authorization' = 'Bearer '+'$(token)'} -- now working - bad credentials
+#       # $response = Invoke-RestMethod -Uri $uri -Method Post -Headers $AzureDevOpsAuthenicationHeader -Body $JSON -ContentType "application/json"   
+#       write-host $response
+
+
+#       $response1 = $response | ConvertTo-Json -Depth 10
+#       write-host  output pull_request: $response1 
+#     useGlobalConfig: true
+#     failOnStandardError: true
+#     powerShellIgnoreLASTEXITCODE: true    
