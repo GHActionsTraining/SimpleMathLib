@@ -27,13 +27,14 @@ jobs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
+      
 - job: GetPRDetails
   pool: server
   steps:
   - task: InvokeRESTAPI@1
     inputs:
       connectionType: 'connectedServiceName'
-      serviceConnection: 'GHActionsTraining'
+      serviceConnection: 'myGeneric'
       method: 'GET'
       urlSuffix: '/repos/GHActionsTraining/SimpleMathLib/pulls?state=all'
       waitForCompletion: 'true'
