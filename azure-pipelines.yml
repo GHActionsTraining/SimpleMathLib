@@ -27,7 +27,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: InvokeRESTAPI@1
+- task: InvokeRESTAPI@0
   inputs:
     connectionType: 'connectedServiceName'
     serviceConnection: 'GHActionsTraining'
