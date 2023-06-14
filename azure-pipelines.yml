@@ -36,5 +36,5 @@ jobs:
       connectionType: 'connectedServiceName'
       serviceConnection: 'myGeneric'
       method: 'GET'
-      urlSuffix: '/repos/GHActionsTraining/SimpleMathLib/pulls?state=all'
+      urlSuffix: 'repos/GHActionsTraining/SimpleMathLib/pulls?state=all'
       waitForCompletion: 'true'
